@@ -7,11 +7,19 @@ edition = "2021"
 
 [dependencies]
 bayespam = "1.1.0"
+csv = "1.3.0"
 js-sys = "0.3.64"
+serde = "1.0.193"
+serde_json = "1.0.109"
+unicode-segmentation = "1.10.1"
 wasm-bindgen = "0.2.87"
 
 [lib]
 crate-type = ["cdylib"]
+
+[[bin]]
+name = "read"
+path = "src/read.rs"
 
 [profile.release]
 lto = true

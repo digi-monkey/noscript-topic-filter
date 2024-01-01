@@ -1,3 +1,7 @@
+extern crate bayespam;
+
+mod classifier;
+//use bayespam::classifier;
 use js_sys::Reflect;
 use wasm_bindgen::prelude::*;
 
@@ -6,6 +10,7 @@ pub fn is_valid_event(event: JsValue) -> bool {
     if let Some(obj) = event.dyn_ref::<js_sys::Object>() {
         if let Ok(content) = Reflect::get(obj, &JsValue::from_str("content")) {
             if let Some(content) = content.as_string() {
+                //const score = classifier::score(content);
                 if content.contains(" nostr ") || content.contains(" Nostr ") {
                     return true;
                 }
