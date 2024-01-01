@@ -13,7 +13,8 @@ fn main() -> Result<(), Box<dyn Error>> {
             Ok(record) => {
                 let msg = record.get(0).unwrap();
                 if msg.eq("spam") {
-                    classifier.train_spam(msg);
+                    let train_msg = record.get(1).unwrap();
+                    classifier.train_spam(train_msg);
                 }
 
                 println!("train spam {:#?}", record);
