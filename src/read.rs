@@ -7,17 +7,32 @@ use std::fs::File;
 
 fn main() -> Result<(), Box<dyn Error>> {
     let mut classifier: Classifier = Classifier::new();
-    let mut rdr = csv::Reader::from_path("spam.csv")?;
+    let mut rdr = csv::Reader::from_path("train.csv")?;
     for result in rdr.records() {
         match result {
             Ok(record) => {
-                let msg = record.get(0).unwrap();
-                if msg.eq("spam") {
-                    let train_msg = record.get(1).unwrap();
+                let msg = record.get(1).unwrap();
+                if msg.eq("4") {
+                    let train_msg = record.get(2).unwrap();
                     classifier.train_spam(train_msg);
-                }
 
-                println!("train spam {:#?}", record);
+                    let s1 =record.get(2).unwrap(); 
+                    classifier.train_spam(s1);
+
+                    let s2 =record.get(3).unwrap(); 
+                    classifier.train_spam(s2);
+
+                    println!("train spam {:#?}", s1);
+                }else {
+                    let train_msg = record.get(2).unwrap();
+                    classifier.train_ham(train_msg);
+
+                    let s1 =record.get(2).unwrap(); 
+                    classifier.train_ham(s1);
+
+                    let s2 =record.get(3).unwrap(); 
+                    classifier.train_ham(s2); 
+                }
             }
             Err(err) => println!("{:#?}", err),
         }
