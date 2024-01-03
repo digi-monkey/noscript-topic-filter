@@ -1,8 +1,7 @@
-extern crate bayespam;
+mod classifier;
 
 use std::fs::File;
-
-use bayespam::classifier::Classifier;
+use classifier::Classifier;
 
 
 fn main() -> Result<(), std::io::Error> {

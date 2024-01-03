@@ -31,6 +31,7 @@ impl Classifier {
     /// Build a new classifier with a pre-trained model loaded from `file`.
     pub fn new_from_pre_trained(file: &mut File) -> Result<Self, io::Error> {
         let pre_trained_model = from_reader(file)?;
+        println!("load file!!");
         Ok(pre_trained_model)
     }
 
