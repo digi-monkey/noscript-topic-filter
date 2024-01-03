@@ -21,6 +21,10 @@ crate-type = ["cdylib"]
 name = "read"
 path = "src/read.rs"
 
+[[bin]]
+name = "record"
+path = "src/record.rs"
+
 [profile.release]
 lto = true
 opt-level = "z"

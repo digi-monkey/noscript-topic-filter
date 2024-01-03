@@ -46,6 +46,29 @@ impl Classifier {
         Ok(())
     }
 
+    pub fn save_split(&self) -> Result<(), io::Error>{
+        let mut spams: Vec<u32> = vec![];
+        let mut hams: Vec<u32> = vec![];
+        let mut words: Vec<String> = vec![];
+        for (key, value) in self.token_table.iter(){
+            spams.push(value.spam);
+            hams.push(value.ham);
+            words.push(key.to_string());
+        }
+
+        let spam_file = File::create("spam-vec.txt")?;
+        let ham_file = File::create("ham-vec.txt")?;
+        let word_file = File::create("tokens.txt")?;
+
+        to_writer(spam_file, &spams)?;
+        to_writer(ham_file, &hams)?;
+        to_writer(word_file, &words)?;
+
+        Ok(())
+    }
+
+    
+
     /// Split `msg` into a list of words.
     fn load_word_list(msg: &str) -> Vec<String> {
         let word_list = msg.unicode_words().collect::<Vec<&str>>();
