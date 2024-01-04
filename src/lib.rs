@@ -66,11 +66,12 @@ pub fn update_hams(index: usize, value: u32) {
 #[wasm_bindgen]
 pub fn pre_validate(){
     let event = runtime::get_self_event().unwrap();
-    
+    let spams_str_vec = event.find_first_tag("spams").unwrap();
+    let hams_str_vec = event.find_first_tag("hams").unwrap();
 
-    let spams: Vec<u32> = vec![3, 1, 0];
-    let hams: Vec<u32> = vec![0, 1, 3];
-    let tokens: Vec<String> = vec!["docker".to_string(), "suggest".to_string(), "faggot".to_string()];
+    let spams: Vec<u32> = spams_str_vec.into_iter().map(|s| s.parse().unwrap()).collect();
+    let hams: Vec<u32> = hams_str_vec.into_iter().map(|s| s.parse().unwrap()).collect();
+    let tokens: Vec<String> = event.find_first_tag("tokens").unwrap();
 
     for (index, token) in tokens.iter().enumerate() {
         add_to_token_table(token, index as u64);
