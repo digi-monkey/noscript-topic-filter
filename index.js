@@ -1,12 +1,7 @@
-import {
-  pre_validate,
-  is_valid_event,
-  rating,
-  add_to_token_table,
-  update_spams,
-  update_hams,
-  initSync,
-} from "./pkg";
+import { pre_validate, is_valid_event } from "./pkg";
+import { createRuntime } from "./runtime";
+
+createRuntime();
 
 const test_event = {
   content: "Good suggestion, linux is my love",
@@ -26,19 +21,3 @@ const test_event = {
 pre_validate();
 const result = is_valid_event(test_event);
 console.log(result);
-/*
-add_to_token_table("docker", 0n)
-add_to_token_table("suggest", 1n)
-add_to_token_table("faggot", 2n)
-
-update_spams(0, 3)
-update_spams(1, 1)
-update_spams(2, 0)
-
-update_hams(0, 0)
-update_hams(1, 1)
-update_hams(2, 3)
-
-const result = rating(event.content)
-console.log(result); // Verify the result
-*/

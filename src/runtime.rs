@@ -74,7 +74,7 @@ impl Event {
     }
 }
 
-#[wasm_bindgen(module = "/js_runtime.js")]
+#[wasm_bindgen]
 extern "C" {
     fn selfEvent() -> JsValue;
 }
