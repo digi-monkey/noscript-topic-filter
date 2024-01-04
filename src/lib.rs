@@ -1,4 +1,5 @@
 mod bayes;
+mod runtime;
 
 use js_sys::Reflect;
 use web_sys::console;
@@ -64,6 +65,9 @@ pub fn update_hams(index: usize, value: u32) {
 
 #[wasm_bindgen]
 pub fn pre_validate(){
+    let event = runtime::get_self_event().unwrap();
+    
+
     let spams: Vec<u32> = vec![3, 1, 0];
     let hams: Vec<u32> = vec![0, 1, 3];
     let tokens: Vec<String> = vec!["docker".to_string(), "suggest".to_string(), "faggot".to_string()];
