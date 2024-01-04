@@ -80,10 +80,12 @@ dependencies = [
  "bayespam",
  "csv",
  "js-sys",
+ "once_cell",
  "serde",
  "serde_json",
  "unicode-segmentation",
  "wasm-bindgen",
+ "web-sys",
 ]
 
 [[package]]
@@ -223,3 +225,13 @@ name = "wasm-bindgen-shared"
 version = "0.2.89"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7ab9b36309365056cd639da3134bf87fa8f3d86008abf99e612384a6eecd459f"
+
+[[package]]
+name = "web-sys"
+version = "0.3.66"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "50c24a44ec86bb68fbecd1b3efed7e85ea5621b39b35ef2766b66cd984f8010f"
+dependencies = [
+ "js-sys",
+ "wasm-bindgen",
+]

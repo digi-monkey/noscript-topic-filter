@@ -3,3 +3,4 @@
 my_super_model.json
 *.txt
 
+/node_modules
