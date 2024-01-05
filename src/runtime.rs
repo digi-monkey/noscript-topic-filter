@@ -63,8 +63,7 @@ impl Event {
                 // Check if the first item starts with the input string
                 if first_item.starts_with(input) {
                     // Clone the inner vector and remove the input string
-                    let mut result = inner_vec.clone();
-                    result.retain(|item| item != input);
+                    let result = inner_vec.iter().skip(1).cloned().collect();
                     return Some(result);
                 }
             }

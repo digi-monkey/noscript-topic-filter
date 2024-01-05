@@ -82,10 +82,33 @@ impl Classifier {
         let mut spams: Vec<String> = vec!["spams".to_string()];
         let mut hams: Vec<String> = vec!["hams".to_string()];
         let mut words: Vec<String> = vec!["tokens".to_string()];
+
+        let test_word = "website";
+        let mut test_word_pos = 0;
         for (key, value) in self.token_table.iter() {
-            spams.push(value.spam.to_string());
-            hams.push(value.ham.to_string());
-            words.push(key.to_string());
+            let spam = value.spam.to_string();
+            let ham = value.ham.to_string();
+            let token = key.to_string();
+            spams.push(spam);
+            hams.push(ham);
+            words.push(token);
+            if key.to_string().eq(test_word) {
+                println!(
+                    "{:#?}: {:#?}, {:#?}",
+                    key.to_string(),
+                    value.spam.to_string(),
+                    value.ham.to_string()
+                );
+            }
+        }
+
+        for (index, token) in words.iter().enumerate() {
+            if token.eq(test_word) {
+                test_word_pos = index;
+                let spam = spams.get(index).unwrap();
+                let ham = hams.get(index).unwrap();
+                println!("test_word in vec {:?} - {:?}: {:?}, {:?}", index, test_word, spam, ham);
+            }
         }
 
         let file: File = File::create("event.json")?;
@@ -100,7 +123,8 @@ impl Classifier {
             tags: vec![spams, hams, words],
           };
 
-        to_writer(file, &value)?;
+          println!("{} - {:#?}", test_word_pos, value.tags.get(0).unwrap().get(test_word_pos).unwrap());
+        //to_writer(file, &value)?;
 
         Ok(())
     }

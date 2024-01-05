@@ -68,12 +68,28 @@ pub fn pre_validate(){
     let event = runtime::get_self_event().unwrap();
     let spams_str_vec = event.find_first_tag("spams").unwrap();
     let hams_str_vec = event.find_first_tag("hams").unwrap();
+    let tokens: Vec<String> = event.find_first_tag("tokens").unwrap();
+
+    let test_word = "website";
+    for (index, token) in tokens.iter().enumerate() {
+        if token.eq(test_word){
+            let spam = spams_str_vec.get(index).unwrap();
+            let ham = hams_str_vec.get(index).unwrap();
+            console::log_1(&JsValue::from_str(&format!("test_word from event_tags str {:?}: {:?}, {:?}", test_word, spam, ham)));
+        }
+    }
 
     let spams: Vec<u32> = spams_str_vec.into_iter().map(|s| s.parse().unwrap()).collect();
     let hams: Vec<u32> = hams_str_vec.into_iter().map(|s| s.parse().unwrap()).collect();
-    let tokens: Vec<String> = event.find_first_tag("tokens").unwrap();
+    
+    console::log_1(&JsValue::from_str(&format!("read data: {:?}: {:?}, {:?}", tokens, spams, hams)));
 
     for (index, token) in tokens.iter().enumerate() {
+        if token.eq(test_word){
+            let spam = spams.get(index).unwrap();
+            let ham = hams.get(index).unwrap();
+            console::log_1(&JsValue::from_str(&format!("test_word from event_tags {:?}: {:?}, {:?}", test_word, spam, ham)));
+        }
         add_to_token_table(token, index as u32);
     }
 
@@ -86,7 +102,6 @@ pub fn pre_validate(){
     }
 
     // Print debug information
-    let test_word = "Content";
     let read_tokens = GLOBAL_TOKEN_TABLE.read().unwrap();
     let read_spams =  GLOBAL_SPAM_VEC.read().unwrap();
     let read_hams =  GLOBAL_HAM_VEC.read().unwrap();
