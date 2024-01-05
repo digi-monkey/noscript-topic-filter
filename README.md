@@ -6,6 +6,7 @@ that filters msg with `Computers & Internet` topic.
 ---
 required:
 
+- `wasm-pack` installed https://github.com/rustwasm/wasm-pack 
 - download dataset from https://huggingface.co/datasets/yahoo_answers_topics
 - place `train.csv` file in the root directory of this repo
 - `cargo run --bin Noscript` will train the model and give it a test
@@ -15,6 +16,15 @@ required:
 - `src/bayes.rs` is the bayes filter algorithm, mostly adapt from https://github.com/zenoxygen/bayespam
 - `src/lib.rs` is the exported code that will be running under the Noscript runtime in the browser.
 - `src/runtime.rs` is the standard Noscript runtime interface, which should be implemented and provided by nostr client.
+
+## Test
+
+```
+wasm-pack build --target web
+yarn && yarn serve
+```
+
+check browser `http://localhost:8080/` see console
 
 ## What is Noscript?
 
