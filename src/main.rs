@@ -1,41 +1,18 @@
-mod classifier;
+mod bayes;
+mod train;
+mod types;
 
-use std::fs::File;
-use classifier::Classifier;
-
+use crate::train::Train;
 
 fn main() -> Result<(), std::io::Error> {
-    let file_path = "my_super_model.json";
-    let mut file = match File::open(file_path) {
-        Ok(file) => file,
-        Err(e) => {
-            panic!("Error opening the file: {}", e);
-        }
-    };
-    // Create a new classifier with an empty model
-    let classifier: Classifier = Classifier::new_from_pre_trained(&mut file).unwrap();
+    let mut train = Train::new();
+    train.train("train.csv").unwrap();
+    train.save_vecs().unwrap();
+    train.save_event().unwrap();
 
-    // Identify a typical spam message
-    let spam = "I recommend looking into nspawn - it's a systemd enabled service that runs LXC containers
-
-    here is an example of a deployment script i built most of:
-    
-    GitHub - relaytools/relay-tools-images: build and deploy repository for relay tools(build and deploy repository for relay tools. ..)
-    
-    it's a bit more manual than docker but you aren't forced into the use of aufs or whatever overlay filesystem so it's got a bit less overhead at that level
-    
-    performance is pretty much near the same as running the server not in a container, it mostly only controls access to kernel resources via namespaces";
-    let score = classifier.score(spam);
-    let is_spam = classifier.identify(spam);
-    println!("{:.4}", score);
-    println!("{}", is_spam);
-
-    // Identify a typical ham message
-    let ham = "Hi Bob, can you send me your machine learning homework?";
-    let score = classifier.score(ham);
-    let is_spam = classifier.identify(ham);
-    println!("{:.4}", score);
-    println!("{}", is_spam);
-
+    let (tokens, spams, hams) = Train::from_local_vecs_to_args().unwrap();
+    let content = "Noticed he said CONTENT.  Content is information aside from the website design and layout.\n\nContent on a website is best unique, as opposed to syndicated (taken from someone else).\n\nIf your site is uniquely written, that's good.  If it's well written, that's great.\n\nIf your site is writing about an interesting topic, uniquely written by you, and well-written, that's awesome -- That's the premisis for creating content for a good website.\n\nAlso, content can come in forms of raw data -- Like, if you wanted to make a travel site -- you can list the prices it takes to fly from Chicago to Pittsburg.  Or you can have a currency converter.\n\nAnother thing you can incorporate is a chatroom or message board for users to discuss the content and post their suggestions.";
+    let result = bayes::identify(content, &tokens, &spams, &hams);
+    println!("is spam: {:#?}", result);
     Ok(())
 }

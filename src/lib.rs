@@ -1,5 +1,6 @@
 mod bayes;
 mod runtime;
+mod types;
 
 use js_sys::Reflect;
 //use web_sys::console;

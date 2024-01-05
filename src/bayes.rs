@@ -1,7 +1,5 @@
 use std::collections::HashMap;
 use unicode_segmentation::UnicodeSegmentation;
-//use wasm_bindgen::prelude::*;
-//use web_sys::console;
 
 const INITIAL_RATING: f32 = 0.5;
 const SPAM_PROB_THRESHOLD: f32 = 0.8;
@@ -93,7 +91,6 @@ pub fn identify(
     hams: &Vec<u32>,
 ) -> bool {
     let point = score(msg, token_table, spams, hams);
-    //console::log_1(&JsValue::from_str(&format!("score point: {:#?}", point)));
     println!("score point: {:#?}", point);
     point > SPAM_PROB_THRESHOLD
 }

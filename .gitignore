@@ -2,7 +2,8 @@
 *.csv
 my_super_model.json
 *.txt
+*model.json
 
 /node_modules
 event.js
-event.json
+*event.json

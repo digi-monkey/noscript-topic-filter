@@ -3,17 +3,6 @@
 version = 3
 
 [[package]]
-name = "bayespam"
-version = "1.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3fc30da46312e6ef33841929c2b2b40a969631cb954561591c8a76c8ebcbd029"
-dependencies = [
- "serde",
- "serde_json",
- "unicode-segmentation",
-]
-
-[[package]]
 name = "bumpalo"
 version = "3.14.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -77,7 +66,6 @@ checksum = "f665ee40bc4a3c5590afb1e9677db74a508659dfd71e126420da8274909a0167"
 name = "noscript"
 version = "0.1.0"
 dependencies = [
- "bayespam",
  "csv",
  "js-sys",
  "once_cell",
