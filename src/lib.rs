@@ -86,9 +86,20 @@ pub fn pre_validate(){
     }
 
     // Print debug information
-    console::log_1(&JsValue::from_str(&format!("Global Token Table: {:?}", GLOBAL_TOKEN_TABLE.read().unwrap().len())));
-    console::log_1(&JsValue::from_str(&format!("Global Spam Vec: {:?}", GLOBAL_SPAM_VEC.read().unwrap().len())));
-    console::log_1(&JsValue::from_str(&format!("Global Ham Vec: {:?}", GLOBAL_HAM_VEC.read().unwrap().len())));
+    let test_word = "Content";
+    let read_tokens = GLOBAL_TOKEN_TABLE.read().unwrap();
+    let read_spams =  GLOBAL_SPAM_VEC.read().unwrap();
+    let read_hams =  GLOBAL_HAM_VEC.read().unwrap();
+
+    let pos = read_tokens.get(test_word).unwrap(); 
+    let spam = read_spams.get(*pos as usize).unwrap();
+    let ham = read_hams.get(*pos as usize).unwrap();
+
+    console::log_1(&JsValue::from_str(&format!("test_word {:?}: {:?}, {:?}", test_word, spam, ham)));
+
+    //console::log_1(&JsValue::from_str(&format!("Global Token Table: {:?}, {:?}, {:#?}", GLOBAL_TOKEN_TABLE.read().unwrap().len(), GLOBAL_TOKEN_TABLE.read().unwrap().get("website"), tokens)));
+    //console::log_1(&JsValue::from_str(&format!("Global Spam Vec: {:?}, {:?}", GLOBAL_SPAM_VEC.read().unwrap().len(), GLOBAL_SPAM_VEC.read().unwrap())));
+    //console::log_1(&JsValue::from_str(&format!("Global Ham Vec: {:?}, {:?}", GLOBAL_HAM_VEC.read().unwrap().len(), GLOBAL_HAM_VEC.read().unwrap())));
 }
 
 #[wasm_bindgen]

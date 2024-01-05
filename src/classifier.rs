@@ -88,7 +88,7 @@ impl Classifier {
             words.push(key.to_string());
         }
 
-        let file = File::create("event.json")?;
+        let file: File = File::create("event.json")?;
 
         let value: Event = Event {
             content: "".to_string(),

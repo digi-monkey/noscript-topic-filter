@@ -30,6 +30,10 @@ path = "src/read.rs"
 name = "record"
 path = "src/record.rs"
 
+[[bin]]
+name = "test"
+path = "src/test_bayes.rs"
+
 [profile.release]
 lto = true
 opt-level = "z"
