@@ -11,7 +11,7 @@ use bayes::identify;
 const  INITIAL_VECTOR_SIZE: usize = 672706;
 
 // Global HashMap
-pub static GLOBAL_TOKEN_TABLE: Lazy<std::sync::RwLock<HashMap<String, u64>>> = Lazy::new(|| {
+pub static GLOBAL_TOKEN_TABLE: Lazy<std::sync::RwLock<HashMap<String, u32>>> = Lazy::new(|| {
     std::sync::RwLock::new(HashMap::new())
 });
 
@@ -26,12 +26,12 @@ pub static GLOBAL_HAM_VEC: Lazy<std::sync::RwLock<Vec<u32>>> = Lazy::new(|| {
 });
 
 #[wasm_bindgen]
-pub fn add_to_token_table(key: &str, value: u64) {
+pub fn add_to_token_table(key: &str, value: u32) {
     GLOBAL_TOKEN_TABLE.write().unwrap().insert(key.to_string(), value);
 }
 
 #[wasm_bindgen]
-pub fn get_from_token_table(key: &str) -> Option<u64> {
+pub fn get_from_token_table(key: &str) -> Option<u32> {
     GLOBAL_TOKEN_TABLE.read().unwrap().get(key).cloned()
 }
 
@@ -74,7 +74,7 @@ pub fn pre_validate(){
     let tokens: Vec<String> = event.find_first_tag("tokens").unwrap();
 
     for (index, token) in tokens.iter().enumerate() {
-        add_to_token_table(token, index as u64);
+        add_to_token_table(token, index as u32);
     }
 
     for (index, count) in spams.iter().enumerate() {
@@ -119,7 +119,7 @@ pub fn is_valid_event(event: JsValue) -> bool {
 
 #[wasm_bindgen]
 pub fn rating(msg: &str)-> Vec<f32>{
-    let mut token_table: HashMap<String, u64> = HashMap::new();
+    let mut token_table: HashMap<String, u32> = HashMap::new();
     token_table.insert("docker".to_string(), 0);
     token_table.insert("suggest".to_string(), 1);
     token_table.insert("faggot".to_string(), 2);

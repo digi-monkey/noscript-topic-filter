@@ -32,14 +32,14 @@ fn main() -> Result<(), std::io::Error> {
     //     token_vec.len(),
     //     token_vec.get(4)
     // );
-    let mut tokens: HashMap<String, u64> = HashMap::new();
+    let mut tokens: HashMap<String, u32> = HashMap::new();
 
     for (index, token) in token_vec.iter().enumerate() {
-	tokens.insert(token.to_string(), index as u64);
+	tokens.insert(token.to_string(), index as u32);
     }
 
     // Print debug information
-    let test_word = "Content";
+    let test_word = "website";
     let pos = tokens.get(test_word).unwrap(); 
     let spam = spams.get(*pos as usize).unwrap();
     let ham = hams.get(*pos as usize).unwrap();

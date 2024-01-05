@@ -15,7 +15,7 @@ pub fn load_word_list(msg: &str) -> Vec<String> {
 /// Compute the probability of each word of `msg` to be part of a spam.
 pub fn rate_words(
     msg: &str,
-    token_table: &HashMap<String, u64>,
+    token_table: &HashMap<String, u32>,
     spams: &Vec<u32>,
     hams: &Vec<u32>,
 ) -> Vec<f32> {
@@ -58,7 +58,7 @@ pub fn rate_words(
 
 pub fn score(
     msg: &str,
-    token_table: &HashMap<String, u64>,
+    token_table: &HashMap<String, u32>,
     spams: &Vec<u32>,
     hams: &Vec<u32>,
 ) -> f32 {
@@ -88,7 +88,7 @@ pub fn score(
 
 pub fn identify(
     msg: &str,
-    token_table: &HashMap<String, u64>,
+    token_table: &HashMap<String, u32>,
     spams: &Vec<u32>,
     hams: &Vec<u32>,
 ) -> bool {
