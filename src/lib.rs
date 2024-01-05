@@ -8,7 +8,7 @@ use std::{collections::HashMap, ops::Deref};
 use once_cell::sync::Lazy;
 use bayes::identify;
 
-const  INITIAL_VECTOR_SIZE: usize = 5;
+const  INITIAL_VECTOR_SIZE: usize = 672706;
 
 // Global HashMap
 pub static GLOBAL_TOKEN_TABLE: Lazy<std::sync::RwLock<HashMap<String, u64>>> = Lazy::new(|| {
@@ -86,9 +86,9 @@ pub fn pre_validate(){
     }
 
     // Print debug information
-    console::log_1(&JsValue::from_str(&format!("Global Token Table: {:?}", GLOBAL_TOKEN_TABLE.read().unwrap())));
-    console::log_1(&JsValue::from_str(&format!("Global Spam Vec: {:?}", GLOBAL_SPAM_VEC.read().unwrap())));
-    console::log_1(&JsValue::from_str(&format!("Global Ham Vec: {:?}", GLOBAL_HAM_VEC.read().unwrap())));
+    console::log_1(&JsValue::from_str(&format!("Global Token Table: {:?}", GLOBAL_TOKEN_TABLE.read().unwrap().len())));
+    console::log_1(&JsValue::from_str(&format!("Global Spam Vec: {:?}", GLOBAL_SPAM_VEC.read().unwrap().len())));
+    console::log_1(&JsValue::from_str(&format!("Global Ham Vec: {:?}", GLOBAL_HAM_VEC.read().unwrap().len())));
 }
 
 #[wasm_bindgen]

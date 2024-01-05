@@ -1,5 +1,8 @@
+import { algo_event } from "./event";
+
 export function createRuntime() {
   /** create runtime for wasm */
+  /*
   const algo_event = {
     content: "",
     created_at: 1704354395,
@@ -15,6 +18,7 @@ export function createRuntime() {
     seen: ["wss://relay.damus.io/", "wss://relay.nostr.band/"],
     timestamp: 1704354462068,
   };
+  */
 
   // Define the selfEvent function
   function selfEvent() {

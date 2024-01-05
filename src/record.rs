@@ -12,6 +12,6 @@ fn main() -> Result<(), std::io::Error> {
 	};
 	// Create a new classifier with an empty model
 	let classifier: Classifier = Classifier::new_from_pre_trained(&mut file).unwrap();
-	classifier.save_split();
+	classifier.save_event();
 	Ok(())
 }
