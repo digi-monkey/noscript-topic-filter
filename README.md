@@ -1,26 +1,28 @@
-A Simple Noscript Example
+A Simple Noscript Boilerplate
 ====
 
-that filters msg with `Computers & Internet` topic.
+wasm_bindgen Rust boilerplate for writing and deploying Noscript.
 
 ---
 required:
 
 - `wasm-pack` installed https://github.com/rustwasm/wasm-pack 
-- download dataset from https://huggingface.co/datasets/yahoo_answers_topics
-- place `train.csv` file in the root directory of this repo
-- `cargo run --bin Noscript` will train the model and give it a test
   
 ## Code Structure
 
-- `src/bayes.rs` is the bayes filter algorithm, mostly adapt from https://github.com/zenoxygen/bayespam
-- `src/lib.rs` is the exported code that will be running under the Noscript runtime in the browser.
-- `src/runtime.rs` is the standard Noscript runtime interface, which should be implemented and provided by nostr client.
+- `script` is the crate of Noscript source code, which is what will be compiled to wasm bytecode that saved on relay.
+- `deploy` is the crate of Noscript deploying tool, turn the script source code to a special event and then sign it and send it to relay.
+- `index.js` is the js test environment which creates a fake runtime interface, and runs the wasm script in browser for test
+
+## Compile
+
+```
+cd script && wasm-pack build --target web
+```
 
 ## Test
 
 ```
-wasm-pack build --target web
 yarn && yarn serve
 ```
 
@@ -28,11 +30,11 @@ check browser `http://localhost:8080/` see console
 
 ### Deploy Noscript
 
-create a `.secret` file and paste your Nostr private key
+create a `.secret` file inside deploy folder and paste your Nostr private key
 
 ```
 // generate and sign event
-cargo run --bin deploy
+cd deploy && cargo run --bin deploy
 ```
 
 ## What is Noscript?
