@@ -13,7 +13,7 @@ module.exports = {
         new HtmlWebpackPlugin(),
         new WasmPackPlugin({
             crateDirectory: path.resolve(__dirname, "./script"),
-            outDir: "./script/pkg"
+            outDir: path.resolve(__dirname, "./script/pkg")
         }),
         // Have this example work in Edge which doesn't ship `TextEncoder` or
         // `TextDecoder` at this time.
