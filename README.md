@@ -1,7 +1,7 @@
 A Simple Noscript Boilerplate
 ====
 
-wasm_bindgen Rust boilerplate for writing and deploying Noscript.
+wasm_bindgen Rust boilerplate for writing and deploying Noscript. This is also a noscript example that filters Nostr text note events with the Japanese language. Other language filtering is available at [branches](https://github.com/digi-monkey/noscript-boilerplate/branches)
 
 ---
 required:
