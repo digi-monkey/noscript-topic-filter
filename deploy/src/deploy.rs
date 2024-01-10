@@ -34,7 +34,7 @@ async fn main() -> Result<()> {
         filter_tags,
     )
     .to_event(&my_keys)?;
-    println!("{:#?}", event);
+    println!("{:#?}", event.id);
     client.send_event(event).await?;
 
     Ok(())

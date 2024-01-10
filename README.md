@@ -30,7 +30,7 @@ check browser `http://localhost:8080/` see console
 
 ### Deploy Noscript
 
-create a `.secret` file inside deploy folder and paste your Nostr private key
+create a `.secret` file in root folder and paste your Nostr private key
 
 ```
 // generate and sign event
