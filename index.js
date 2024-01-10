@@ -1,4 +1,4 @@
-import { pre_validate, is_valid_event } from "./pkg";
+import { pre_validate, is_valid_event } from "./script/pkg";
 import { createRuntime } from "./runtime";
 
 createRuntime();
@@ -28,7 +28,7 @@ const test_event = {
   timestamp: 1704354462068,
 };
 const test_event2 = {
-  content: `What do I need to open PDF files?,,You need Adobe Acrobat Reader:  http://www.adobe.com/products/acrobat/r`,
+  content: `年末から溶連菌やらインフルエンザやらアデノウイルスやらもん何でもかんでも感染してグロッキーですよね`,
   created_at: 1704354395,
   id: "a4e602e7ebb85bc3d3eae64476db5e2987d8370fc18f2b467b5c4c71fa8671da",
   kind: 1,
@@ -47,7 +47,15 @@ const test_event3 = {
 };
 const test_event4 = {
   content:
-    "What is the US market size ($)for medical diagnostic equipment for 2006?",
+    `
+    NIP-26の仕様自体はそんなに筋悪くなさそうだから、Nostreamが"
+pubkey or delegator in IDs
+"してるのを"
+pubkey in IDs
+union
+delegator in IDs
+"に変えてクエリーを投げるようにしたら速くなる気がしてる。
+    `,
 };
 
 const result = is_valid_event(test_event);
