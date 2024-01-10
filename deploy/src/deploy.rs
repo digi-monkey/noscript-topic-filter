@@ -8,7 +8,7 @@ use std::{fs::File, io::Read};
 
 #[tokio::main]
 async fn main() -> Result<()> {
-    let mut file = File::open(".secret")?;
+    let mut file = File::open("../.secret")?;
     let mut key = String::new();
     file.read_to_string(&mut key).unwrap();
     let my_keys = Keys::from_sk_str(key.as_str())?;
@@ -34,13 +34,14 @@ async fn main() -> Result<()> {
         filter_tags,
     )
     .to_event(&my_keys)?;
+    println!("{:#?}", event);
     client.send_event(event).await?;
 
     Ok(())
 }
 
 pub fn read_wasm() -> String {
-    let wasm_file_path = "./script/pkg/script_bg.wasm";
+    let wasm_file_path = "../script/pkg/script_bg.wasm";
     let mut wasm_file = File::open(wasm_file_path).expect("Failed to open .wasm file");
     let mut wasm_bytes = Vec::new();
     wasm_file
@@ -49,7 +50,7 @@ pub fn read_wasm() -> String {
 
     let wasm_base64 = general_purpose::STANDARD.encode(&wasm_bytes);
 
-    println!("Base64-encoded .wasm file:\n{}", wasm_base64);
+    //println!("Base64-encoded .wasm file:\n{}", wasm_base64);
 
     return wasm_base64;
 }
