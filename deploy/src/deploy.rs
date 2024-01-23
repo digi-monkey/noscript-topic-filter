@@ -1,7 +1,10 @@
-mod types;
 mod conf;
 
+extern crate types;
 use types::NOSCRIPT_KIND;
+
+extern crate train;
+use train::train::Train;
 
 use base64::{engine::general_purpose, Engine};
 use nostr_sdk::prelude::*;
@@ -16,7 +19,7 @@ async fn main() -> Result<()> {
     let relays = conf.relays;
 
     let client = Client::new(&my_keys);
-    for relay in relays{
+    for relay in relays {
         println!("add relay: {}", relay);
         client.add_relay(relay).await?;
     }
@@ -24,15 +27,21 @@ async fn main() -> Result<()> {
 
     // Send custom event
     let content = read_wasm();
+    let e = Train::from_local_vecs_to_event().unwrap();
+    let mut tags = to_sdk_tags(e.tags);
     let filter: Filter = Filter::new().kind(Kind::TextNote);
-    let id = "Japanese-Lang";
-    let description = "a noscript that filter japanese text only";
-    let filter_tags = create_filter_tag(filter, Some(id.to_string()), Some(description.to_string()));
-    
+    let id = "computer&internet";
+    let description = "a noscript that filter text for computer&internet topic only";
+    let filter_tags =
+        create_filter_tag(filter, Some(id.to_string()), Some(description.to_string()));
+    for t in filter_tags {
+        tags.push(t);
+    }
+
     let event: Event = EventBuilder::new(
         Kind::Custom(NOSCRIPT_KIND.try_into().unwrap()),
         content,
-        filter_tags,
+        tags,
     )
     .to_event(&my_keys)?;
     println!("{:#?}", event.id);
@@ -56,7 +65,21 @@ pub fn read_wasm() -> String {
     return wasm_base64;
 }
 
-pub fn create_filter_tag(filter: Filter, id: Option<String>, description: Option<String>) -> Vec<Tag> {
+pub fn to_sdk_tags(tags: Vec<Vec<String>>) -> Vec<Tag> {
+    let mut sdk_tags: Vec<Tag> = vec![];
+    for tag in tags {
+        let label = tag.first().unwrap();
+        let t = Tag::Generic(TagKind::from(label), tag.iter().skip(1).cloned().collect());
+        sdk_tags.push(t);
+    }
+    sdk_tags
+}
+
+pub fn create_filter_tag(
+    filter: Filter,
+    id: Option<String>,
+    description: Option<String>,
+) -> Vec<Tag> {
     let mut tags: Vec<Tag> = vec![];
 
     if filter.ids.len() > 0 {
